@@ -99,6 +99,11 @@ function install {
   echo "Dreammate correctly installed in $DREAMMATE_BIN_PATH"
 }
 
+function version {
+  VERSION=$(cat VERSION)
+  echo "Dreammate version: $VERSION"
+}
+
 function usage {
   echo "Usage: ./dreammate.sh action"
 
@@ -125,6 +130,7 @@ ACTION=$1
 case "$ACTION" in
   help)
     usage
+    ;;
   me)
     me "${@:2}"
     ;;
@@ -142,7 +148,9 @@ case "$ACTION" in
     ;;
   version)
     version
+    ;;
   *)
+
     echo "Action not recognized"
     exit 1
 esac
