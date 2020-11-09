@@ -94,6 +94,12 @@ function install {
   DREAMMATE_PATH="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )/dreammate.sh"
   DREAMMATE_BIN_PATH="~/.local/bin/dm"
 
+  if [ ! -d ~/.local/bin ];
+  then
+    echo "Directory ~/.local/bin does not exists, creating  it..."
+    mkdir -p ~/.local/bin
+  fi
+
   cp $DREAMMATE_PATH ~/.local/bin/dm
 
   echo "Dreammate correctly installed in $DREAMMATE_BIN_PATH"
