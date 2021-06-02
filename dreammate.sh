@@ -74,6 +74,22 @@ function push {
   gh pr create -Bdevelopment -b "$PR_BODY" -t"$PR_TITLE"
 }
 
+function info {
+  fetch_login
+
+  BRANCH_NAME=$(git rev-parse --abbrev-ref HEAD)
+
+  ISSUE_NUMBER=$(echo $BRANCH_NAME | cut -d# -f2)
+
+  if [ -z $ISSUE_NUMBER ];
+  then
+    echo "Cannot get issue number from current branch"
+    exit 1
+  fi
+
+  gh issue view $ISSUE_NUMBER
+}
+
 function me {
   GITHUB_LOGIN=$1
 
@@ -119,6 +135,7 @@ function usage {
     list        List all the issues related to the current user
     help        Show this help message
     start       Create a branch based on an issue
+    info        Get current active issue description
     push        Create a PR based on the current issue branch
     version     Print the software version
   "
@@ -142,6 +159,9 @@ case "$ACTION" in
     ;;
   start)
     start "${@:2}"
+    ;;
+  info)
+    info
     ;;
   install)
     install
